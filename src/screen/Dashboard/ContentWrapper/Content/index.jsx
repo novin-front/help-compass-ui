@@ -11,7 +11,7 @@ import StudentNewRequestForm from "../../StudentNewRequestForm";
 import Dashboard from "../../Dashboard";
 import StudentProgramList from "../../StudentProgramList";
 import TeacherLanguageRequest from "../../TeacherLanguageRequest";
-import TecherProgramList from "../../TecherProgramList";
+import TeacherProgramList from "../../TeacherProgramList";
 export default function Content() {
   let history = useHistory();
   // const { path, url } = useRouteMatch();
@@ -45,8 +45,8 @@ export default function Content() {
         <Route exact path="/dashboard/teacher-language-request">
           <TeacherLanguageRequest />
         </Route>
-        <Route exact path="/dashboard/techer-program-request-list">
-          <TecherProgramList />
+        <Route exact path="/dashboard/teacher-program-request-list">
+          <TeacherProgramList />
         </Route>
       </div>
       <footer className="footer">

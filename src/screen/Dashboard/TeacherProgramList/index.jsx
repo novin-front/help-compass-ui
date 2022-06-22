@@ -11,12 +11,12 @@ import { isEmpty } from "../../../services/function";
 import NotAccess from "../../../assets/images/no-access.svg";
 import UserItem from "./UserItem";
 
-export default function TecherProgramList() {
+export default function TeacherProgramList() {
   const dispatch = useDispatch();
   let history = useHistory();
 
   const state = useSelector((state) => state);
-  const { requestProgramList ,userInof ,teacherLanguageRequest ,programListTecher } = useSelector((state) => state.dashboard);
+  const { requestProgramList ,userInof ,teacherLanguageRequest ,programListTeacher } = useSelector((state) => state.dashboard);
   useEffect(async () => {
     if(teacherLanguageRequest.languageListId.length === 0){
       await dispatch(fetchTeacherLanguageRequest());
@@ -26,19 +26,19 @@ export default function TecherProgramList() {
   }, [teacherLanguageRequest.languageListId.length]);
 
   const renderUserItem = () => {
-    console.log("programListTecher =>",programListTecher)
-    if (programListTecher.length === 0) {
+    console.log("programListTeacher =>",programListTeacher)
+    if (programListTeacher.length === 0) {
       return (
         <td colSpan="8">
           <h4 className="text-center">No Items</h4>
         </td>
       );
     }
-    return programListTecher.map((item,index) => {
+    return programListTeacher.map((item,index) => {
       return <UserItem key={index} requestData={item} />;
     });
   };
-  console.log("requestProgramList =>", requestProgramList);
+  console.log("userInof.role =>", userInof.role);
   console.log("requestProgramList =>", userInof.role ,userInof.activated );
   if(userInof.role === "teacher" && userInof.activated === "activated"){
     return (

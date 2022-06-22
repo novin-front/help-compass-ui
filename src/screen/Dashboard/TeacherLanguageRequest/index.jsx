@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import NotAccess from "../../../assets/images/no-access.svg";
 import { useHistory } from "react-router-dom";
 import {
   fetchAllLanguagesList,
@@ -14,6 +15,7 @@ export default function TeacherLanguageRequest() {
   let history = useHistory();
   const state = useSelector((state) => state);
   const {
+    userInof,
     languagesList,
     updateResponselanguagesListForm,
     teacherLanguageRequest,
@@ -41,34 +43,47 @@ export default function TeacherLanguageRequest() {
   };
   const createLanguageList = () => {
     console.log("teacherLanguageRequest =>", teacherLanguageRequest);
-    return languagesList.map((language, index) => {
-      // return <option value={language.id}>{language.lable}</option>;
-      return (
-        <div
-          key={index}
-          class="col-12 col-md-4 col-xl-3 form-check form-check-info"
-        >
-          <label htmlFor={"language" + language.id} class="form-check-label">
-            <input
-              onChange={(e) =>
-                dispatch(updateLanguageList(language.id.toString()))
-              }
-              name="language"
-              id={"language" + language.id}
-              type="checkbox"
-              value={language.id.toString()}
-              class="form-check-input"
-              checked={teacherLanguageRequest.languageListId.includes(
-                language.id.toString()
-              )}
-            />
-            {language.lable}
-            <i class="input-helper"></i>
-          </label>
+    if(languagesList.length){
+      return languagesList.map((language, index) => {
+        // return <option value={language.id}>{language.lable}</option>;
+        return (
+          <div
+            key={index}
+            class="col-12 col-md-4 col-xl-3 form-check form-check-info"
+          >
+            <label htmlFor={"language" + language.id} class="form-check-label">
+              <input
+                onChange={(e) =>
+                  dispatch(updateLanguageList(language.id.toString()))
+                }
+                name="language"
+                id={"language" + language.id}
+                type="checkbox"
+                value={language.id.toString()}
+                class="form-check-input"
+                checked={teacherLanguageRequest.languageListId.includes(
+                  language.id.toString()
+                )}
+              />
+              {language.lable}
+              <i class="input-helper"></i>
+            </label>
+          </div>
+        );
+      });
+    }else{
+      return(
+        <div className="col-12">
+              <blockquote class="blockquote">
+                    <h5 className="card-title">
+                      No Item
+                    </h5>
+              </blockquote>
         </div>
-      );
-    });
+      )
+    }
   };
+  if(userInof.role === "teacher" && userInof.activated === "activated"){
   return (
     <div className="row">
       <div className="col-12 grid-margin">
@@ -110,4 +125,28 @@ export default function TeacherLanguageRequest() {
       </div>
     </div>
   );
+  }else{
+    return (
+      <div className="row">
+    <div className="col-12 grid-margin stretch-card">
+      <div className="card">
+        <div className="card-body">
+          <div className="card-title">
+            <h3 className="text-center">
+            You do not have access to this list
+            </h3>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-12 col-md-4">
+              <div className="complet-profile-icon">
+                <img className="img-fluid" src={NotAccess} alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    )
+  }
 }

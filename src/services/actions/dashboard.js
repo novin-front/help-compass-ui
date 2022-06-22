@@ -1063,7 +1063,7 @@ export const submitLanguageRequestForm = (
     }
 }
 
-export const updateTecherProgramListData = (response) => async(
+export const updateTeacherProgramListData = (response) => async(
     dispatch,
 ) => {
     await dispatch({
@@ -1077,6 +1077,7 @@ export const fetchAllTeacherProgramList = () => async(
 ) => {
     let {
         teacherLanguageRequest,
+        universityId,
     } = store.getState().dashboard;
 
     let containErrors = false;
@@ -1090,6 +1091,7 @@ export const fetchAllTeacherProgramList = () => async(
                 .post(
                     process.env.REACT_APP_API_BASE_URL +
                     "api/v1/user/get-teacher-program", {
+                        teacherId: universityId.value,
                         languageListId: teacherLanguageRequest.languageListId.toString(),
                     }, {
                         headers: {
@@ -1101,13 +1103,13 @@ export const fetchAllTeacherProgramList = () => async(
                     dispatch(updateFeaching(false));
                     console.log("response =>", response)
                     if (response.data.success) {
-                        dispatch(updateTecherProgramListData(response.data.programList));
+                        dispatch(updateTeacherProgramListData(response.data.programList));
                     }
                 })
                 .catch((error) => {
                     userForbidden(error.response.data);
                     dispatch(updateFeaching(false));
-                    dispatch(updateTecherProgramListData([]))
+                    dispatch(updateTeacherProgramListData([]))
                 });
         } catch (error) {
             dispatch(updateFeaching(false));

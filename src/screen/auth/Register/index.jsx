@@ -70,10 +70,10 @@ export default function Register() {
                         type="radio"
                         className="form-check-input"
                         name="userType"
-                        id="techer"
-                        onChange={(e) => dispatch(updateUserType("techer"))}
+                        id="teacher"
+                        onChange={(e) => dispatch(updateUserType("teacher"))}
                       />
-                      Techers
+                      Teacher
                       <i className="input-helper"></i>
                     </label>
                   </div>

@@ -63,7 +63,7 @@ export default function Sidebar() {
           <li className="nav-item">
             <Link
               className="nav-link"
-              to="/dashboard/techer-program-request-list"
+              to="/dashboard/teacher-program-request-list"
             >
               <i className="typcn icon typcn-th-menu-outline menu-icon"></i>
               <span className="menu-title">Program Request List</span>

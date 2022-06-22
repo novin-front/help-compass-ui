@@ -73,7 +73,8 @@ export const dashboardState = {
     },
     users: [],
     requestProgramList: [],
-    programListTecher: [],
+    languagesList: [],
+    programListTeacher: [],
 }
 export const dashboardReducer = (state = dashboardState, action) => {
     switch (action.type) {
@@ -385,12 +386,12 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 console.log("UPDATE_TEACHER_PROGRAM_RESPONSE =>", action.payload)
                 return {
                     ...state,
-                    programListTecher: action.payload.response,
+                    programListTeacher: action.payload.response,
                 };
             }
         case dashboard.UPDATE_PROGRAM_STATUS_BY_ID:
             {
-                let newProgramListTecher = state.programListTecher.map((program) => {
+                let newProgramListTeacher = state.programListTeacher.map((program) => {
                     if (program.id === action.payload.id) {
                         program.request_status = action.payload.status;
                     }
@@ -398,7 +399,7 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 });
                 return {
                     ...state,
-                    programListTecher: newProgramListTecher,
+                    programListTeacher: newProgramListTeacher,
                 };
             }
 
