@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { submitLoguot } from "../../../services/actions/dashboard";
 import { isEmpty } from "../../../services/function";
-
+import logoImage from "../../../assets/images/logo.png"
 export default function Menu() {
   let history = useHistory();
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ export default function Menu() {
       <div className="navbar-brand-wrapper d-flex justify-content-center">
         <div className="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
           <a className="navbar-brand brand-logo" href="../../index.html">
-            <img src="../../images/logo.svg" alt="logo" />
+            <img src={logoImage} alt="logo" />
           </a>
           <a className="navbar-brand brand-logo-mini" href="../../index.html">
-            <img src="../../images/logo-mini.svg" alt="logo" />
+            <img src={logoImage} alt="logo" />
           </a>
           <button
             className="navbar-toggler navbar-toggler align-self-center"

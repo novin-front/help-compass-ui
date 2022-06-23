@@ -60,9 +60,16 @@ export default function StudentNewRequestForm() {
     });
   };
   const createStudyList = () => {
+    if(studyList.length === 0){
+      return(
+        <blockquote class="blockquote w-100">
+            <h4 class="card-title">No Items</h4>        
+        </blockquote>
+      )
+    }
     return studyList.map((studyItem) => {
       return (
-        <div className="col-12 col-md-4 col-xl-3 form-check">
+        <div className="col-12 col-md-4 col-xl-3  form-check">
       <label className="form-check-label" htmlFor={"study-id-"+ studyItem.id}
        onClick={(e) => dispatch(updateStudy(studyItem.id.toString()))}
       >
