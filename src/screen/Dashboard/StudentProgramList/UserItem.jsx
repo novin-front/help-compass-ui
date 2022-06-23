@@ -91,7 +91,7 @@ export default function UserItem(props) {
   return (
     <>
       <tr>
-        <td>{props.requestData.id}</td>
+        <td>{props.index}</td>
         <td>{props.requestData.student_id}</td>
         <td>{props.requestData.teacher_name ? props.requestData.teacher_name : '---'}</td>
         <td>{props.requestData.program_time}</td>

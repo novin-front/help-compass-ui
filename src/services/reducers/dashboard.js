@@ -410,6 +410,8 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 let newProgramListTeacher = state.programListTeacher.map((program) => {
                     if (program.id === action.payload.id) {
                         program.request_status = action.payload.status;
+                        program.teacher_name = state.firstName.value + " " + state.lastName.value;
+
                     }
                     return program
                 });

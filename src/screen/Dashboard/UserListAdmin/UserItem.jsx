@@ -97,7 +97,7 @@ export default function UserItem(props) {
   return (
     <>
       <tr>
-        <td>{props.userData.id}</td>
+        <td>{props.index}</td>
         <td>
           {renderFullName(props.userData.first_name, props.userData.last_name)}
         </td>

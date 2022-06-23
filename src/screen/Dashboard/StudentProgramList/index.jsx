@@ -20,6 +20,7 @@ export default function StudentProgramList() {
     await dispatch(fetchProgramListById());
     await dispatch(fetchAllStudyList());
     await dispatch(fetchAllLanguagesList());
+    
   }, [requestProgramList.length]);
 
   const renderUserItem = () => {
@@ -31,7 +32,8 @@ export default function StudentProgramList() {
       );
     }
     return requestProgramList.map((item,index) => {
-      return <UserItem key={index} requestData={item} />;
+      index = ++index;
+      return <UserItem key={index} index={index} requestData={item} />;
     });
   };
   if(userInof.role.toUpperCase() === "STUDENT" && userInof.activated.toUpperCase() === "ACTIVATED"){

@@ -22,13 +22,14 @@ export default function UserListAdmin() {
   const renderUserItem = () => {
     if (users.length === 0) {
       return (
-        <td colspan="8">
+        <td colSpan="8">
           <h4 className="text-center">No Items</h4>
         </td>
       );
     }
-    return users.map((item) => {
-      return <UserItem userData={item} />;
+    return users.map((item,index) => {
+      index = ++index;
+      return <UserItem userData={item} index={index} />;
     });
   };
   if(userInof.role.toUpperCase() === "ADMIN"){

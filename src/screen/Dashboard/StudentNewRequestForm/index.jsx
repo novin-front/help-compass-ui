@@ -30,9 +30,13 @@ export default function StudentNewRequestForm() {
     userInof,
   } = useSelector((state) => state.dashboard);
   useEffect(async () => {
+   if(languagesList.length === 0){
     await dispatch(fetchAllLanguagesList());
+   }
+   if(studyList.length === 0){
     await dispatch(fetchAllStudyList());
-  }, [languagesList.length]);
+   }
+  }, []);
 
   let classMessage = updateRequestProgramResponse.success
     ? "alert-success"

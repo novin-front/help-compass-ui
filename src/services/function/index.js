@@ -24,17 +24,21 @@ export const IsValidEmail = (value) => {
 export const userForbidden = (error) => {
     console.log("error =>", error)
     if (isEmpty(error)) {
+        if (!(error.hasOwnProperty("response"))) {
+            if (error.response.data.statusCode === "403") {
+                localStorage.clear();
+                window.location.replace(window.location.origin);
+            } else {
+                localStorage.clear();
+                window.location.replace(window.location.origin);
+            }
+        }
+
+    } else {
         window.location.replace(window.location.origin);
-        return;
-    }
-    if (!("response" in error)) {
-        window.location.replace(window.location.origin);
-        return;
-    }
-    if (error.response.data.statusCode === "403") {
         localStorage.clear();
-        window.location.replace(window.location.origin);
     }
+
 }
 export const isEmpty = (value) => {
     if (value == null) {

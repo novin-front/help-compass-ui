@@ -34,7 +34,8 @@ export default function TeacherProgramList() {
       );
     }
     return programListTeacher.map((item,index) => {
-      return <UserItem key={index} requestData={item} />;
+      index = ++index;
+      return <UserItem key={index} index={index} requestData={item} />;
     });
   };
 

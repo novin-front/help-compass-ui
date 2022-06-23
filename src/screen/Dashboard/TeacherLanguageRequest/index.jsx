@@ -21,9 +21,13 @@ export default function TeacherLanguageRequest() {
     teacherLanguageRequest,
   } = useSelector((state) => state.dashboard);
   useEffect(() => {
-    dispatch(fetchTeacherLanguageRequest());
-    dispatch(fetchAllLanguagesList());
-  }, [languagesList.length]);
+    if(teacherLanguageRequest.languageListId == 0){
+      dispatch(fetchTeacherLanguageRequest());
+    }
+    if(languagesList.length === 0){
+      dispatch(fetchAllLanguagesList());
+    }
+  }, []);
 
   let classMessage = updateResponselanguagesListForm.success
     ? "alert-success"
@@ -44,7 +48,6 @@ export default function TeacherLanguageRequest() {
   const createLanguageList = () => {
     if(languagesList.length){
       return languagesList.map((language, index) => {
-        // return <option value={language.id}>{language.lable}</option>;
         return (
           <div
             key={index}

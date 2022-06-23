@@ -25,7 +25,7 @@ function App() {
           <Route path="/change-password" exact component={ChangePassword} />
         )}
         <Route path="/dashboard/:topicId"  component={Dashboard} />
-        
+
         <Route path="*" component={NotFound} />
       </Switch>
     </div>

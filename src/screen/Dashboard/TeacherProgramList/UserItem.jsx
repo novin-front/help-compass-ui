@@ -4,16 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
-  feachAllUsersList,
-  submitActiveUserByID,
-  submitDeleteUserByID,
-  submitLoguot,
   submitProgramStatus,
-  submitUpdateProfileForm,
-  updateFirstName,
-  updateLastName,
-  updateUniversityId,
-  updateUserGender,
 } from "../../../services/actions/dashboard";
 import { isEmpty } from "../../../services/function";
 
@@ -114,7 +105,7 @@ export default function UserItem(props) {
   return (
     <>
       <tr>
-        <td>{props.requestData.id}</td>
+        <td>{props.index}</td>
         <td>{props.requestData.student_id}</td>
         <td>
           {props.requestData.teacher_name
