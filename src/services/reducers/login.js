@@ -65,7 +65,6 @@ export const loginReducer = (state = loginState, action) => {
 
         case login.GET_LOGIN_RESPONSE:
             localStorage.setItem("token", action.payload.response.token);
-            console.log("GET_LOGIN_RESPONSE =>", action.payload)
             return {
                 ...state,
                 userIsLogin: {

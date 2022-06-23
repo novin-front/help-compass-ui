@@ -26,7 +26,6 @@ export default function TeacherProgramList() {
   }, [teacherLanguageRequest.languageListId.length]);
 
   const renderUserItem = () => {
-    console.log("programListTeacher =>",programListTeacher)
     if (programListTeacher.length === 0) {
       return (
         <td colSpan="8">
@@ -38,18 +37,17 @@ export default function TeacherProgramList() {
       return <UserItem key={index} requestData={item} />;
     });
   };
-  console.log("userInof.role =>", userInof.role);
-  console.log("requestProgramList =>", userInof.role ,userInof.activated );
-  if(userInof.role === "teacher" && userInof.activated === "activated"){
+
+  if(userInof.role.toUpperCase() === "TEACHER" && userInof.activated.toUpperCase() === "ACTIVATED"){
     return (
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="table-responsive pt-3">
-              <table class="table table-striped project-orders-table">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="card">
+            <div className="table-responsive pt-3">
+              <table className="table table-striped project-orders-table">
                 <thead>
                   <tr>
-                    <th class="ml-5">ID</th>
+                    <th className="ml-5">ID</th>
                     <th>Student ID</th>
                     <th>teacher name</th>
                     <th>Program Time </th>
@@ -67,7 +65,8 @@ export default function TeacherProgramList() {
       </div>
     );
   }else{
-    return <div className="row">
+    return (
+      <div className="row">
     <div className="col-12 grid-margin stretch-card">
       <div className="card">
         <div className="card-body">
@@ -87,5 +86,6 @@ export default function TeacherProgramList() {
       </div>
     </div>
   </div>
+    )
   }
 }

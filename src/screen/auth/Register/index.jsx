@@ -79,7 +79,6 @@ export default function Register() {
                   </div>
                 </div>
                 <div className="col-12">
-                  {console.log("userType =>",userType)}
                 {userType.containErrors && (
                   <span className="msg text-danger">
                     Please select a user type

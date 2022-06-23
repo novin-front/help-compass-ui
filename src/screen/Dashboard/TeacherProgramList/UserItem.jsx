@@ -32,11 +32,11 @@ export default function UserItem(props) {
   };
   const requestStatus = (status) => {
     if (status == "Unknown") {
-      return <div class="badge badge-info">Unknown</div>;
+      return <div className="badge badge-info">Unknown</div>;
     } else if (status == "accept") {
-      return <div class="badge badge-success">Accept</div>;
+      return <div className="badge badge-success">Accept</div>;
     } else {
-      return <div class="badge badge-danger">Reject</div>;
+      return <div className="badge badge-danger">Reject</div>;
     }
   };
 
@@ -90,21 +90,21 @@ export default function UserItem(props) {
         {modalstatus !== "detail"  && <h4 className="card-title"> do you hav {modalstatus} this program?</h4>}
         <div className="row">
           <div className="col-12">
-            <h5 class="card-title">Student ID : </h5>
-            <blockquote class="blockquote">
-              <p class="mb-0">{props.requestData.student_id}</p>
+            <h5 className="card-title">Student ID : </h5>
+            <blockquote className="blockquote">
+              <p className="mb-0">{props.requestData.student_id}</p>
             </blockquote>
-            <h5 class="card-title">Availabilities : </h5>
-            <blockquote class="blockquote">
-              <p class="mb-0">{props.requestData.availabilities}</p>
+            <h5 className="card-title">Availabilities : </h5>
+            <blockquote className="blockquote">
+              <p className="mb-0">{props.requestData.availabilities}</p>
             </blockquote>
-            <h5 class="card-title">Program Time : </h5>
-            <blockquote class="blockquote">
-              <p class="mb-0">{props.requestData.program_time}</p>
+            <h5 className="card-title">Program Time : </h5>
+            <blockquote className="blockquote">
+              <p className="mb-0">{props.requestData.program_time}</p>
             </blockquote>
-            <h5 class="card-title">program comment : </h5>
-            <blockquote class="blockquote">
-              <p class="mb-0">{props.requestData.comment}</p>
+            <h5 className="card-title">program comment : </h5>
+            <blockquote className="blockquote">
+              <p className="mb-0">{props.requestData.comment}</p>
             </blockquote>
           </div>
         </div>
@@ -129,10 +129,10 @@ export default function UserItem(props) {
         </td>
         <td> {requestStatus(props.requestData.request_status)}</td>
         <td>
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <button
               type="button"
-              class="btn btn-success btn-sm btn-icon-text mr-3"
+              className="btn btn-success btn-sm btn-icon-text mr-3"
               disabled={props.requestData.request_status !== "Unknown"}
               onClick={(e) => {
                 setmodalstatus("accept");
@@ -140,10 +140,10 @@ export default function UserItem(props) {
               }}
             >
               Accept
-              <i class="typcn typcn-thumbs-up btn-icon-append"></i>
+              <i className="typcn typcn-thumbs-up btn-icon-append"></i>
             </button>
             <button
-              class="btn btn-danger btn-sm btn-icon-text"
+              className="btn btn-danger btn-sm btn-icon-text"
               disabled={props.requestData.request_status !== "Unknown"}
               onClick={(e) => {
                 setmodalstatus("reject");
@@ -151,16 +151,16 @@ export default function UserItem(props) {
               }}
             >
               Reject
-              <i class="typcn typcn-thumbs-down btn-icon-append"></i>
+              <i className="typcn typcn-thumbs-down btn-icon-append"></i>
             </button>
             <button
-              class="btn btn-danger btn-sm btn-icon-text mx-1"
+              className="btn btn-danger btn-sm btn-icon-text mx-1"
               onClick={(e) => {
                 setmodalstatus("detail");
                 setshowModal(true);
               }}
             >
-              <i class=" typcn icon typcn-document-text btn-icon-append"></i>
+              <i className=" typcn icon typcn-document-text btn-icon-append"></i>
             </button>
           </div>
         </td>

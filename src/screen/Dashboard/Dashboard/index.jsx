@@ -9,7 +9,6 @@ export default function Dashboard() {
   const state = useSelector((state) => state);
   const { userInof} =
     useSelector((state) => state.dashboard);
-    console.log("activated =>",userInof)
     return (
       <div className="row">
         <div className="col-12 grid-margin stretch-card">

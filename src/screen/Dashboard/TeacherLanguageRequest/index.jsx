@@ -42,16 +42,15 @@ export default function TeacherLanguageRequest() {
     }
   };
   const createLanguageList = () => {
-    console.log("teacherLanguageRequest =>", teacherLanguageRequest);
     if(languagesList.length){
       return languagesList.map((language, index) => {
         // return <option value={language.id}>{language.lable}</option>;
         return (
           <div
             key={index}
-            class="col-12 col-md-4 col-xl-3 form-check form-check-info"
+            className="col-12 col-md-4 col-xl-3 form-check form-check-info"
           >
-            <label htmlFor={"language" + language.id} class="form-check-label">
+            <label htmlFor={"language" + language.id} className="form-check-label">
               <input
                 onChange={(e) =>
                   dispatch(updateLanguageList(language.id.toString()))
@@ -60,13 +59,13 @@ export default function TeacherLanguageRequest() {
                 id={"language" + language.id}
                 type="checkbox"
                 value={language.id.toString()}
-                class="form-check-input"
+                className="form-check-input"
                 checked={teacherLanguageRequest.languageListId.includes(
                   language.id.toString()
                 )}
               />
               {language.lable}
-              <i class="input-helper"></i>
+              <i className="input-helper"></i>
             </label>
           </div>
         );
@@ -74,7 +73,7 @@ export default function TeacherLanguageRequest() {
     }else{
       return(
         <div className="col-12">
-              <blockquote class="blockquote">
+              <blockquote className="blockquote">
                     <h5 className="card-title">
                       No Item
                     </h5>
@@ -83,7 +82,8 @@ export default function TeacherLanguageRequest() {
       )
     }
   };
-  if(userInof.role === "teacher" && userInof.activated === "activated"){
+  
+  if(userInof.role.toUpperCase() === "TEACHER" && userInof.activated.toUpperCase() === "ACTIVATED" ){
   return (
     <div className="row">
       <div className="col-12 grid-margin">
@@ -93,7 +93,7 @@ export default function TeacherLanguageRequest() {
             <p className="card-description">program info</p>
 
             <div className="row">
-              <div class="col-12 col-md-12 form-group">
+              <div className="col-12 col-md-12 form-group">
                 <label for="">Languages List</label>
                 <div className="row">{createLanguageList()}</div>
                 {teacherLanguageRequest.containErrors && (

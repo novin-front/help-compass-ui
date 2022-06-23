@@ -5,11 +5,13 @@ import NotAccess from "../../../assets/images/no-access.svg";
 import { useHistory } from "react-router-dom";
 import {
   fetchAllLanguagesList,
+  fetchAllStudyList,
   submitProgramRequestForm,
   updateAvailabilities,
   updateComment,
   updateLanguage,
   updateProgramTime,
+  updateStudy,
 } from "../../../services/actions/dashboard";
 
 export default function StudentNewRequestForm() {
@@ -21,12 +23,15 @@ export default function StudentNewRequestForm() {
     language,
     programTime,
     comment,
+    study,
+    studyList,
     languagesList,
     updateRequestProgramResponse,
     userInof,
   } = useSelector((state) => state.dashboard);
-  useEffect(() => {
-    dispatch(fetchAllLanguagesList());
+  useEffect(async () => {
+    await dispatch(fetchAllLanguagesList());
+    await dispatch(fetchAllStudyList());
   }, [languagesList.length]);
 
   let classMessage = updateRequestProgramResponse.success
@@ -50,11 +55,28 @@ export default function StudentNewRequestForm() {
       return <option value={language.id}>{language.lable}</option>;
     });
   };
-  console.log("FFFFF =>",availabilities,
-  language,
-  programTime,
-  comment,)
-  if(userInof.role === "student" && userInof.activated === "activated"){
+  const createStudyList = () => {
+    return studyList.map((studyItem) => {
+      return (
+        <div className="col-12 col-md-4 col-xl-3 form-check">
+      <label className="form-check-label" htmlFor={"study-id-"+ studyItem.id}
+       onClick={(e) => dispatch(updateStudy(studyItem.id.toString()))}
+      >
+        <input 
+                type="radio" 
+                className="form-check-input" 
+                name="studySelect" 
+                id={"study-id-"+ studyItem.id} 
+                value={studyItem.id}/>
+        {studyItem.lable}
+      <i className="input-helper"></i></label>
+    </div>
+      )
+    });
+  };
+  
+
+  if(userInof.role.toUpperCase() === "STUDENT" && userInof.activated.toUpperCase() === "ACTIVATED"){
     return (
       <div className="row">
         <div className="col-12 grid-margin">
@@ -62,36 +84,36 @@ export default function StudentNewRequestForm() {
             <div className="card-body">
               <h4 className="card-title">Add New Request</h4>
               <p className="card-description">program info</p>
-  
+
               <div className="row">
-                <div class="col-12 col-md-6 form-group">
+                <div className="col-12 col-md-6 form-group">
                   <label for="exampleInputName1">Type of Training class</label>
-                  <div class="form-check">
-                    <label class="form-check-label" htmlFor="individual">
+                  <div className="form-check">
+                    <label className="form-check-label" htmlFor="individual">
                       <input
                         onChange={(e) =>
                           dispatch(updateAvailabilities("individual"))
                         }
                         type="radio"
-                        class="form-check-input"
+                        className="form-check-input"
                         name="language"
                         id="individual"
                       />
                       Individual
-                      <i class="input-helper"></i>
+                      <i className="input-helper"></i>
                     </label>
                   </div>
-                  <div class="form-check">
-                    <label class="form-check-label" htmlFor="group">
+                  <div className="form-check">
+                    <label className="form-check-label" htmlFor="group">
                       <input
                         onChange={(e) => dispatch(updateAvailabilities("group"))}
                         type="radio"
-                        class="form-check-input"
+                        className="form-check-input"
                         name="language"
                         id="group"
                       />
                       Group
-                      <i class="input-helper"></i>
+                      <i className="input-helper"></i>
                     </label>
                   </div>
                   {availabilities.containErrors && (
@@ -101,12 +123,12 @@ export default function StudentNewRequestForm() {
                   )}
                 </div>
   
-                <div class="col-12 col-md-6 form-group">
+                <div className="col-12 col-md-6 form-group">
                   <label for="programTime">Availability Time</label>
                   <input
                     onChange={(e) => dispatch(updateProgramTime(e.target.value))}
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     id="programTime"
                     value={programTime.value}
                     placeholder="programTime"
@@ -119,12 +141,24 @@ export default function StudentNewRequestForm() {
                   )}
                 </div>
               </div>
-  
               <div className="row">
-                <div class="col-12 col-md-6 form-group">
+                <div className="col-12 col-md-12 form-group">
+                  <label for="language">study</label>
+                  <div className="row">
+                  {createStudyList()}
+                  </div>
+                  {study.containErrors && (
+                    <span className="msg text-danger">
+                      Please check the input value
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-12 col-md-6 form-group">
                   <label for="language">languages</label>
                   <select
-                    class="form-control"
+                    className="form-control"
                     id="language"
                     value={language.value}
                     onChange={(e) => dispatch(updateLanguage(e.target.value))}
@@ -139,10 +173,10 @@ export default function StudentNewRequestForm() {
                   )}
                 </div>
   
-                <div class="col-12 col-md-6 form-group">
+                <div className="col-12 col-md-6 form-group">
                   <label for="exampleTextarea1">Comment</label>
                   <textarea
-                    class="form-control"
+                    className="form-control"
                     id="exampleTextarea1"
                     rows="4"
                     value={comment.value}
@@ -176,7 +210,6 @@ export default function StudentNewRequestForm() {
           </div>
         </div>
       </div>
-      // </div>
     );
   }else{
     return (

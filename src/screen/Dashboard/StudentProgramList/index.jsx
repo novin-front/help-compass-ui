@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
   fetchAllLanguagesList,
+ fetchAllStudyList,
  fetchProgramListById,
 } from "../../../services/actions/dashboard";
 import NotAccess from "../../../assets/images/no-access.svg";
@@ -15,9 +16,10 @@ export default function StudentProgramList() {
 
   const state = useSelector((state) => state);
   const { requestProgramList ,userInof } = useSelector((state) => state.dashboard);
-  useEffect(() => {
-    dispatch(fetchProgramListById());
-    dispatch(fetchAllLanguagesList());
+  useEffect(async () => {
+    await dispatch(fetchProgramListById());
+    await dispatch(fetchAllStudyList());
+    await dispatch(fetchAllLanguagesList());
   }, [requestProgramList.length]);
 
   const renderUserItem = () => {
@@ -32,18 +34,16 @@ export default function StudentProgramList() {
       return <UserItem key={index} requestData={item} />;
     });
   };
-  console.log("requestProgramList =>", requestProgramList);
-  console.log("requestProgramList =>", userInof.role ,userInof.activated );
-  if(userInof.role === "student" && userInof.activated === "activated"){
+  if(userInof.role.toUpperCase() === "STUDENT" && userInof.activated.toUpperCase() === "ACTIVATED"){
     return (
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card">
-            <div class="table-responsive pt-3">
-              <table class="table table-striped project-orders-table">
+      <div className="row">
+        <div className="col-md-12">
+          <div className="card">
+            <div className="table-responsive pt-3">
+              <table className="table table-striped project-orders-table">
                 <thead>
                   <tr>
-                    <th class="ml-5">ID</th>
+                    <th className="ml-5">ID</th>
                     <th>Student ID</th>
                     <th>teacher name</th>
                     <th>Program Time </th>

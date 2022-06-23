@@ -19,7 +19,6 @@ export default function CompleteProfile() {
   let classMessage = userUpdateProfile.success
     ? "alert-success"
     : "alert-danger";
-  console.log("login userUpdateProfile ->", userUpdateProfile);
   const redirectPage = () => {
     if (userUpdateProfile.show) {
       if (userUpdateProfile.success) {

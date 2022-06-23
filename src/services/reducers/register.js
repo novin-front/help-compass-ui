@@ -96,7 +96,6 @@ export const registerReducer = (state = registerState, action) => {
             };
 
         case register.UPDATE_USER_TYPE_ERROR_FIELD:
-            console.log("UPDATE_USER_TYPE_ERROR_FIELD =>", action.payload.userType)
             return {
                 ...state,
                 userType: {

@@ -3,7 +3,7 @@
 import axios from "axios";
 import { dashboard } from '../actionTypes';
 // import {registerState} from '../reducers/index';
-import { IsValidEmail, passwordValidation, userForbidden } from "../function";
+import { isEmpty, IsValidEmail, passwordValidation, userForbidden } from "../function";
 import { store } from "../store";
 // import browserHistory from "../browserHistory";
 
@@ -174,6 +174,28 @@ export const updateLanguageErrorField = (
     });
 };
 
+export const updateStudy = (
+    study,
+) => async(
+    dispatch,
+) => {
+    study.length <= 40 &&
+        (await dispatch({
+            type: dashboard.UPDATE_VALID_STUDY_VALUE,
+            payload: { study: { value: study } },
+        }));
+};
+
+export const updateStudyErrorField = (
+    status,
+) => async(
+    dispatch,
+) => {
+    await dispatch({
+        type: dashboard.UPDATE_STUDY_ERROR_FIELD,
+        payload: { study: { containErrors: status } },
+    });
+};
 
 export const updateComment = (
     comment,
@@ -292,7 +314,6 @@ export const submitCheckIsUserLogin = (
                     }
                 )
                 .then((response) => {
-                    console.log("response =>", response)
                     if (response.data.success) {
                         dispatch(updateResponseUserInfo(response.data));
                     } else {
@@ -301,7 +322,7 @@ export const submitCheckIsUserLogin = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     console.log(error);
                     localStorage.clear();
                     window.location.replace(window.location.origin);
@@ -350,7 +371,7 @@ export const submitLoguot = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     localStorage.clear();
                     window.location.replace(window.location.origin);
@@ -398,7 +419,7 @@ export const feachAllUsersList = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                     dispatch(updateResponseUserListData([]))
@@ -430,7 +451,6 @@ export const submitActiveUserByID = (
     } = store.getState().dashboard;
 
     let containErrors = false;
-    console.log("submitActiveUserByID")
     if (!containErrors) {
 
         const token = localStorage.getItem("token");
@@ -457,7 +477,7 @@ export const submitActiveUserByID = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                 });
@@ -505,7 +525,7 @@ export const submitDeleteUserByID = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                 });
@@ -627,7 +647,7 @@ export const submitUpdateProfileForm = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                     dispatch(updateResponseUpdateProfile({
@@ -696,7 +716,7 @@ export const fetchAllLanguagesList = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     dispatch(updateLanguagesListData([]))
                 });
@@ -726,6 +746,7 @@ export const submitProgramRequestForm = (
         lastName,
         universityId,
         availabilities,
+        study,
         language,
         programTime,
         comment,
@@ -745,6 +766,12 @@ export const submitProgramRequestForm = (
     } else {
         containErrors = true;
         dispatch(updateLanguageErrorField(true));
+    }
+    if (!isEmpty(study.value)) {
+        dispatch(updateStudyErrorField(false));
+    } else {
+        containErrors = true;
+        dispatch(updateStudyErrorField(true));
 
     }
     if (programTime.value.length < 40 && programTime.value.length !== 0) {
@@ -767,7 +794,7 @@ export const submitProgramRequestForm = (
                         universityId: universityId.value,
                         studentId: universityId.value,
                         studentName: firstName.value + " " + lastName.value,
-                        studentProgram: language.value,
+                        studentStudyId: study.value,
                         studentLanguageId: language.value,
                         comment: comment.value,
                         availabilities: availabilities.value
@@ -796,7 +823,7 @@ export const submitProgramRequestForm = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                     dispatch(updateResponseProgramRequest({
@@ -863,7 +890,7 @@ export const fetchProgramListById = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                     dispatch(updateStudentProgramRequestListData([]))
@@ -909,7 +936,6 @@ export const updateLanguageListErrorField = (
 export const updateTeacherLanguageRequestData = (response) => async(
     dispatch,
 ) => {
-    console.log("updateTeacherLanguageRequestData =>", response)
     await dispatch({
         type: dashboard.UPDATE_TEACHER_LANGUAGE_REQUEST_RESPONSE,
         payload: { response },
@@ -961,7 +987,7 @@ export const fetchTeacherLanguageRequest = () => async(
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error.message);
                     dispatch(updateTeacherLanguageRequestData({
@@ -1043,7 +1069,7 @@ export const submitLanguageRequestForm = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
                     dispatch(updateResponseLanguageRequestForm({
@@ -1107,7 +1133,7 @@ export const fetchAllTeacherProgramList = () => async(
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     dispatch(updateTeacherProgramListData([]))
                 });
@@ -1166,9 +1192,63 @@ export const submitProgramStatus = (
                     }
                 })
                 .catch((error) => {
-                    userForbidden(error.response.data);
+                    userForbidden(error);
                     dispatch(updateFeaching(false));
                     console.log(error);
+                });
+        } catch (error) {
+            dispatch(updateFeaching(false));
+        }
+    }
+}
+
+
+export const updateStudyListData = (Studys) => async(
+    dispatch,
+) => {
+    await dispatch({
+        type: dashboard.GET_STUDY_LIST_DATA_RESPONSE,
+        payload: { Studys },
+    });
+};
+export const fetchAllStudyList = (
+    status,
+) => async(
+    dispatch,
+) => {
+    let {
+        userInof,
+    } = store.getState().dashboard;
+
+    let containErrors = false;
+
+    if (!containErrors) {
+
+        const token = localStorage.getItem("token");
+        dispatch(updateFeaching(true));
+        try {
+            axios
+                .post(
+                    process.env.REACT_APP_API_BASE_URL +
+                    "api/v1/user/study-list", {
+                        email: userInof.email,
+                    }, {
+                        headers: {
+                            'Authorization': `Basic ${token}`
+                        }
+                    }
+                )
+                .then((response) => {
+                    dispatch(updateFeaching(false));
+                    console.log("response =>", response)
+                    if (response.data.success) {
+                        dispatch(updateStudyListData(response.data.study));
+                    }
+                })
+                .catch((error) => {
+                    userForbidden(error);
+                    dispatch(updateFeaching(false));
+                    dispatch(updateStudyListData([]))
                 });
         } catch (error) {
             dispatch(updateFeaching(false));

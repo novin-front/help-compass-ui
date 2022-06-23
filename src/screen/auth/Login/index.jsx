@@ -18,9 +18,7 @@ export default function Login() {
     const redirectPage = () => {
         if (userIsLogin.show) {
             if (userIsLogin.isLogin) {
-              console.log("fff login userIsLogin ->",userIsLogin)
               setTimeout(()=>{
-                console.log("userIsLogin =>",userIsLogin)
                 if(userIsLogin.role == "admin"){
                   history.push("/dashboard/user-list");
                 }else{

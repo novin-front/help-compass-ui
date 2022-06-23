@@ -31,20 +31,19 @@ export default function UserItem(props) {
   };
   const IsActive = (status) => {
     if (status == "not_active") {
-      return <div class="badge badge-danger">No Active</div>;
+      return <div className="badge badge-danger">No Active</div>;
     } else {
-      return <div class="badge badge-success">Active</div>;
+      return <div className="badge badge-success">Active</div>;
     }
   };
 
   const IsComplet = (status) => {
     if (status == "not_completed") {
-      return <div class="badge badge-danger">No Complet</div>;
+      return <div className="badge badge-danger">No Complet</div>;
     } else {
-      return <div class="badge badge-success">Completed</div>;
+      return <div className="badge badge-success">Completed</div>;
     }
   };
-  console.log("vvvvvvvvv =>", props.userData);
 
   const handleClose = () => {
     setshowModal(false);
@@ -108,10 +107,10 @@ export default function UserItem(props) {
         <td> {IsComplet(props.userData.profile_status)}</td>
         <td>{IsActive(props.userData.is_active)}</td>
         <td>
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <button
               type="button"
-              class="btn btn-success btn-sm btn-icon-text mr-3"
+              className="btn btn-success btn-sm btn-icon-text mr-3"
               disabled={props.userData.is_active === "activated"}
               onClick={(e) => {
                 setmodalstatus("active");
@@ -119,17 +118,17 @@ export default function UserItem(props) {
               }}
             >
               active
-              <i class="typcn typcn-edit btn-icon-append"></i>
+              <i className="typcn typcn-edit btn-icon-append"></i>
             </button>
             <button
-              class="btn btn-danger btn-sm btn-icon-text"
+              className="btn btn-danger btn-sm btn-icon-text"
               onClick={(e) => {
                 setmodalstatus("delete");
                 setshowModal(true);
               }}
             >
               Delete 
-              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+              <i className="typcn typcn-delete-outline btn-icon-append"></i>
             </button>
           </div>
         </td>

@@ -31,11 +31,11 @@ export default function UserItem(props) {
   };
   const requestStatus = (status) => {
     if (status == "Unknown") {
-      return <div class="badge badge-info">Unknown</div>;
+      return <div className="badge badge-info">Unknown</div>;
     } else if(status == "accept") {
-      return <div class="badge badge-success">Accept</div>;
+      return <div className="badge badge-success">Accept</div>;
     }else {
-      return <div class="badge badge-danger">Reject</div>;
+      return <div className="badge badge-danger">Reject</div>;
     }
   };
 
@@ -99,10 +99,10 @@ export default function UserItem(props) {
         <td> <p className="limeted-item-text">{props.requestData.comment}</p></td>
         <td> {requestStatus(props.requestData.request_status)}</td>
         {/* <td>
-          <div class="d-flex align-items-center">
+          <div className="d-flex align-items-center">
             <button
               type="button"
-              class="btn btn-success btn-sm btn-icon-text mr-3"
+              className="btn btn-success btn-sm btn-icon-text mr-3"
               disabled={props.requestData.is_active === "activated"}
               onClick={(e) => {
                 setmodalstatus("active");
@@ -110,17 +110,17 @@ export default function UserItem(props) {
               }}
             >
               active
-              <i class="typcn typcn-edit btn-icon-append"></i>
+              <i className="typcn typcn-edit btn-icon-append"></i>
             </button>
             <button
-              class="btn btn-danger btn-sm btn-icon-text"
+              className="btn btn-danger btn-sm btn-icon-text"
               onClick={(e) => {
                 setmodalstatus("delete");
                 setshowModal(true);
               }}
             >
               Delete 
-              <i class="typcn typcn-delete-outline btn-icon-append"></i>
+              <i className="typcn typcn-delete-outline btn-icon-append"></i>
             </button>
           </div>
         </td> */}

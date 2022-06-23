@@ -9,7 +9,6 @@ export default function NotActiveUser() {
   const state = useSelector((state) => state);
   const { userInof} =
     useSelector((state) => state.dashboard);
-    console.log("activated =>",userInof)
   if(userInof.activated === "not_active"){
     return (
       <div className="row">

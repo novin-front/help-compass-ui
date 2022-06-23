@@ -21,8 +21,17 @@ export const IsValidEmail = (value) => {
         value
     );
 }
-export const userForbidden = (resposne) => {
-    if (resposne.statusCode === "403") {
+export const userForbidden = (error) => {
+    console.log("error =>", error)
+    if (isEmpty(error)) {
+        window.location.replace(window.location.origin);
+        return;
+    }
+    if (!("response" in error)) {
+        window.location.replace(window.location.origin);
+        return;
+    }
+    if (error.response.data.statusCode === "403") {
         localStorage.clear();
         window.location.replace(window.location.origin);
     }

@@ -28,6 +28,10 @@ export const dashboardState = {
         value: "",
         containErrors: false,
     },
+    study: {
+        value: "",
+        containErrors: false,
+    },
     programTime: {
         value: "",
         containErrors: false,
@@ -74,6 +78,7 @@ export const dashboardState = {
     users: [],
     requestProgramList: [],
     languagesList: [],
+    studyList: [],
     programListTeacher: [],
 }
 export const dashboardReducer = (state = dashboardState, action) => {
@@ -155,7 +160,6 @@ export const dashboardReducer = (state = dashboardState, action) => {
             };
 
         case dashboard.GET_USER_INFO_RESPONSE:
-            console.log("action.payload =>", action.payload)
             localStorage.setItem("token", action.payload.response.token);
             localStorage.setItem("uId", action.payload.response.id);
             localStorage.setItem("role", action.payload.response.role);
@@ -207,7 +211,6 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 },
             };
         case dashboard.GET_USER_LIST_DATA_RESPONSE:
-            console.log("GET_USER_LIST_DATA_RESPONSE", action.payload.users)
             return {
                 ...state,
                 users: action.payload.users
@@ -265,6 +268,25 @@ export const dashboardReducer = (state = dashboardState, action) => {
                     value: action.payload.language.value,
                 }
             };
+
+        case dashboard.UPDATE_VALID_STUDY_VALUE:
+            return {
+                ...state,
+                study: {
+                    ...state.study,
+                    value: action.payload.study.value,
+                }
+            };
+
+        case dashboard.UPDATE_STUDY_ERROR_FIELD:
+            return {
+                ...state,
+                study: {
+                    ...state.study,
+                    containErrors: action.payload.study.containErrors,
+                }
+            };
+
         case dashboard.UPDATE_LANGUAGE_ERROR_FIELD:
             return {
                 ...state,
@@ -329,8 +351,6 @@ export const dashboardReducer = (state = dashboardState, action) => {
 
         case dashboard.UPDATE_TEACHER_LANGUAGE_REQUEST_RESPONSE:
             let fullName = state.firstName.value + " " + state.lastName.value;
-            console.log("action.payload.response =>", !isEmpty(action.payload.response.teacherName))
-            console.log("action.payload.response =>", action.payload.response)
             return {
                 ...state,
                 teacherLanguageRequest: {
@@ -343,9 +363,7 @@ export const dashboardReducer = (state = dashboardState, action) => {
             };
 
         case dashboard.UPDATE_LANGUAGE_LIST_ID:
-            console.log("action.payload.teacherLanguageRequest =>", action.payload)
             let newLanguageList = state.teacherLanguageRequest.languageListId
-            console.log("newLanguageList =>", newLanguageList)
             if (newLanguageList.includes(action.payload.languageID.value.toString())) {
                 newLanguageList = newLanguageList.filter(item => item != action.payload.languageID.value)
             } else {
@@ -368,7 +386,6 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 }
             };
         case dashboard.UPDATE_TEACHER_LANGUAGE_REQUEST_FORM_RESPONSE:
-            console.log("UPDATE_TEACHER_LANGUAGE_REQUEST_FORM_RESPONSE =>", action.payload)
             return {
                 ...state,
                 updateResponselanguagesListForm: {
@@ -383,7 +400,6 @@ export const dashboardReducer = (state = dashboardState, action) => {
 
         case dashboard.UPDATE_TEACHER_PROGRAM_RESPONSE:
             {
-                console.log("UPDATE_TEACHER_PROGRAM_RESPONSE =>", action.payload)
                 return {
                     ...state,
                     programListTeacher: action.payload.response,
@@ -400,6 +416,13 @@ export const dashboardReducer = (state = dashboardState, action) => {
                 return {
                     ...state,
                     programListTeacher: newProgramListTeacher,
+                };
+            }
+        case dashboard.GET_STUDY_LIST_DATA_RESPONSE:
+            {
+                return {
+                    ...state,
+                    studyList: action.payload.Studys,
                 };
             }
 
